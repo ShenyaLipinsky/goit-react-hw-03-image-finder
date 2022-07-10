@@ -1,4 +1,3 @@
-import propTypes from 'prop-types';
 import { LoaderStyled } from './Loader.styled';
 import { ThreeCircles } from 'react-loader-spinner';
 
