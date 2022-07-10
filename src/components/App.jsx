@@ -60,10 +60,10 @@ export class App extends Component {
         top: 1000,
         behavior: 'smooth',
       });
-    }, 300);
+    }, 400);
 
   loadMore = () => {
-    this.timeout();
+    // this.timeout();
     this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
   };
 
@@ -93,13 +93,19 @@ export class App extends Component {
           }
 
           if (this.state.hits.length < response.data.totalHits) {
-            return this.setState(prevState => ({
+            this.setState(prevState => ({
               totalHits: response.data.totalHits,
               hits: [...prevState.hits, ...response.data.hits],
             }));
           } else {
             throw new Error('Oops');
           }
+        })
+        .then(async () => {
+          if (this.state.hits.length > 0) {
+            this.timeout();
+          }
+          await clearTimeout(this.timeout);
         })
         .catch(error => {
           console.log(error);
@@ -110,7 +116,6 @@ export class App extends Component {
         })
         .then(() => {
           this.setState({ loaderHidden: true, isLoading: false });
-          clearTimeout(this.timeout);
         });
     }
     return;
