@@ -14,8 +14,3 @@ export const Loader = () => {
     </LoaderStyled>
   );
 };
-//(possible exports: Audio, BallTriangle, Bars,
-// Circles, CirclesWithBar, CradleLoader, Grid,
-//   Hearts, LineWave, MutatingDots, Oval, Plane,
-//   Puff, RevolvingDot, Rings, RotatingSquare,
-//   TailSpin, ThreeCircles, ThreeDots, Triangle, Watch)

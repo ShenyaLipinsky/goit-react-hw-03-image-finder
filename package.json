@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-02-feedback",
+  "name": "goit-react-hw-03-image-finder",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://shenyalipinsky.github.io/goit-react-hw-02-feedback/",
+  "homepage": "https://shenyalipinsky.github.io/goit-react-hw-03-image-finder/",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@mdx-js/react": "^2.1.2",

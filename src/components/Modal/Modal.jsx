@@ -6,6 +6,9 @@ import { Overlay, ModalImg } from './Modal.styled';
 const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
+  static propTypes = {
+    onClose: propTypes.func.isRequired,
+  };
   componentDidMount() {
     window.addEventListener('keydown', this.handleModal);
     window.addEventListener('click', this.handleModal);

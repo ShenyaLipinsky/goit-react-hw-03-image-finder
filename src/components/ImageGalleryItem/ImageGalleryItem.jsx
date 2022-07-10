@@ -11,6 +11,12 @@ export class ImageGalleryItem extends Component {
     modalHidden: true,
   };
 
+  static propTypes = {
+    webImg: propTypes.string.isRequired,
+    largeImg: propTypes.string.isRequired,
+    id: propTypes.number.isRequired,
+  };
+
   toggleModal = () => {
     this.setState(({ modalHidden }) => {
       return { modalHidden: !modalHidden };
@@ -34,3 +40,10 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
+ImageGalleryItemStyled.propTypes = {
+  onClick: propTypes.func.isRequired,
+};
+ImageGalleryImgStyled.propTypes = {
+  src: propTypes.string.isRequired,
+  alt: propTypes.string,
+};

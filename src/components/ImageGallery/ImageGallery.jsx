@@ -2,7 +2,7 @@ import propTypes from 'prop-types';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { ImageGalleryBox } from './ImageGallery.styled';
 
-export const ImageGallery = ({ data, toggle }) => {
+export const ImageGallery = ({ data }) => {
   // console.log(data);
   return (
     <ImageGalleryBox>
@@ -13,10 +13,19 @@ export const ImageGallery = ({ data, toggle }) => {
             id={id}
             webImg={webformatURL}
             largeImg={largeImageURL}
-            toggle={toggle}
           />
         );
       })}
     </ImageGalleryBox>
   );
+};
+
+ImageGallery.propTypes = {
+  data: propTypes.arrayOf(
+    propTypes.shape({
+      id: propTypes.number.isRequired,
+      webformatURL: propTypes.string.isRequired,
+      largeImageURL: propTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };

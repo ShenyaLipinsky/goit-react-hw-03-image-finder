@@ -15,3 +15,10 @@ export const Button = ({ onClick, loading }) => {
     </>
   );
 };
+Button.propTypes = {
+  onClick: propTypes.func.isRequired,
+  loading: propTypes.bool.isRequired,
+};
+LoadMoreBtn.propTypes = {
+  onClick: propTypes.func.isRequired,
+};

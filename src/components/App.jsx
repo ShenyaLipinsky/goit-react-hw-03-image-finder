@@ -32,11 +32,17 @@ export class App extends Component {
 
   getRequest = data => {
     this.setState(prevState => {
-      if (prevState.queue.toLowerCase() === data.queue.toLowerCase()) {
+      if (
+        prevState.queue.toLowerCase().trim() ===
+          data.queue.toLowerCase().trim() &&
+        data.queue.toLowerCase().trim() !== ''
+      ) {
         return Notiflix.Notify.info(
           `You are already looking for ${this.state.queue}. Change you request.`,
           notiflixOptions
         );
+      } else if (data.queue.toLowerCase() === '') {
+        return Notiflix.Notify.info(`Enter some request.`, notiflixOptions);
       } else {
         return {
           page: 1,
@@ -47,7 +53,17 @@ export class App extends Component {
       }
     });
   };
+
+  timeout = () =>
+    setTimeout(() => {
+      window.scrollBy({
+        top: 1000,
+        behavior: 'smooth',
+      });
+    }, 300);
+
   loadMore = () => {
+    this.timeout();
     this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
   };
 
@@ -82,7 +98,7 @@ export class App extends Component {
               hits: [...prevState.hits, ...response.data.hits],
             }));
           } else {
-            throw new Error();
+            throw new Error('Oops');
           }
         })
         .catch(error => {
@@ -94,6 +110,7 @@ export class App extends Component {
         })
         .then(() => {
           this.setState({ loaderHidden: true, isLoading: false });
+          clearTimeout(this.timeout);
         });
     }
     return;
