@@ -5,6 +5,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
 import { AppBox } from './App.styled';
+import { Modal } from './Modal/Modal';
 
 const URI = 'https://pixabay.com/api/';
 const API_KEY = '27515696-8635174e5d1dc6e80848b95cf';
@@ -28,6 +29,8 @@ export class App extends Component {
     loaderHidden: true,
     totalHits: 0,
     isLoading: false,
+    modalHidden: true,
+    modalImg: '',
   };
 
   getRequest = data => {
@@ -66,6 +69,12 @@ export class App extends Component {
     // this.timeout();
     this.setState(prevState => ({ page: prevState.page + 1, isLoading: true }));
   };
+  toggleModal = largeImg => {
+    if (this.state.modalImg === '') {
+      return this.setState({ modalHidden: false, modalImg: largeImg });
+    }
+    return this.setState({ modalHidden: true, modalImg: '' });
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -93,9 +102,17 @@ export class App extends Component {
           }
 
           if (this.state.hits.length < response.data.totalHits) {
+            let data = response.data.hits.map(item => {
+              let data = {
+                id: item.id,
+                webformatURL: item.webformatURL,
+                largeImageURL: item.largeImageURL,
+              };
+              return data;
+            });
             this.setState(prevState => ({
               totalHits: response.data.totalHits,
-              hits: [...prevState.hits, ...response.data.hits],
+              hits: [...prevState.hits, ...data],
             }));
           } else {
             throw new Error('Oops');
@@ -125,10 +142,21 @@ export class App extends Component {
     return (
       <AppBox>
         <SearchBar onSubmit={this.getRequest} />
-        {this.state.hits !== null && <ImageGallery data={this.state.hits} />}
+        {this.state.hits.length !== 0 && (
+          <ImageGallery
+            data={this.state.hits}
+            toggleModal={this.toggleModal}
+            isModalOpen={this.state.modalHidden}
+          />
+        )}
         {!this.state.loaderHidden && <Loader />}
         {this.state.hits.length < this.state.totalHits && (
           <Button onClick={this.loadMore} loading={this.state.isLoading} />
+        )}
+        {!this.state.modalHidden && (
+          <Modal onClose={this.toggleModal}>
+            <img src={this.state.modalImg} alt="" />
+          </Modal>
         )}
       </AppBox>
     );

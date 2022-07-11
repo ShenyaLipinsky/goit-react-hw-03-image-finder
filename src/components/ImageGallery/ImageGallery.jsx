@@ -2,7 +2,7 @@ import propTypes from 'prop-types';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { ImageGalleryBox } from './ImageGallery.styled';
 
-export const ImageGallery = ({ data }) => {
+export const ImageGallery = ({ data, toggleModal, isModalOpen }) => {
   // console.log(data);
   return (
     <ImageGalleryBox>
@@ -13,6 +13,8 @@ export const ImageGallery = ({ data }) => {
             id={id}
             webImg={webformatURL}
             largeImg={largeImageURL}
+            toggleModal={toggleModal}
+            isModalOpen={isModalOpen}
           />
         );
       })}
